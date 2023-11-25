@@ -3,6 +3,7 @@ import Home from './Components/Home/Home';
 import Signup from './Components/Signup/Signup';
 import DoctorHomePage from './Components/Doctor/Home'; 
 import DoctorAppointments from './Components/Doctor/Appointments'; 
+import DoctorConsultations from './Components/Doctor/Consultations'; 
 import DoctorPatients from './Components/Doctor/Patients'; 
 import PatientHomePage from './Components/Patient/Home';
 import PatientDoctorDetails from './Components/Patient/DoctorDetails';
@@ -20,6 +21,7 @@ function App() {
         <Route path="/doctor" element={<DoctorHomePage />} />
         <Route path="/patient" element={<PatientHomePage />} />
         <Route path="/doctor/appointments" element={<DoctorAppointments />} />
+        <Route path="/doctor/consultations" element={<DoctorConsultations />} />
         <Route path="/doctor/patients" element={<DoctorPatients />} />
         <Route path="/patient/doctor/:id" element={<PatientDoctorDetails />} />
         <Route path="/patient/searchdoctor" element={<PatientSearchDoctor />} />
