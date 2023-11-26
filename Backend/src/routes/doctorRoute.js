@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const Doctor = require('../db/schemas/Doctor');
-const Consultation = require('../db/schemas/Consultation'); // Assuming you have a Consultation schema
-const Patient = require('../db/schemas/Patient'); // Assuming you have a Patient schema
+const Consultation = require('../db/schemas/Consultation'); 
+const Patient = require('../db/schemas/Patient'); 
 
 const doctorRouter = Router();
 
@@ -76,7 +76,6 @@ doctorRouter.post('/create', async (req, res) => {
       age,
       bloodgroup,
     });
-    console.log(newDoctor);
 
     const savedDoctor = await newDoctor.save();
     res.status(201).json(savedDoctor);
@@ -124,6 +123,29 @@ doctorRouter.put('/:id', async (req, res) => {
     }
 
     res.status(200).json(updatedDoctor);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+doctorRouter.post('/login', async (req, res) => {
+  const { userName, password } = req.body;
+
+  try {
+    const doctor = await Doctor.findOne({ userName });
+
+    if (!doctor) {
+      return res.status(404).json({ error: 'doctor not found' });
+    }
+
+    // Check if the provided password matches the one in the database
+    if (doctor.password !== password) {
+      return res.status(401).json({ error: 'Incorrect password' });
+    }
+
+    // Password matches; you can choose to return the doctor object or a success message
+    res.status(200).json(doctor);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });

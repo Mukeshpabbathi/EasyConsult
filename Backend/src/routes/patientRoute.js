@@ -53,7 +53,6 @@ patientRouter.get("/conditions", (req, res) => {
 
 // creta a new patient
 patientRouter.post('/create', async (req, res) => {
-  console.log("this method called");
     const {firstName, lastName, gender, email} = req.body;
     const patientDB = await Patient.findOne({ "email": email });
     if (patientDB)
@@ -74,6 +73,8 @@ patientRouter.post('/create2', async (req, res) => {
     const {
       firstName,
       lastName,
+      userName,
+      password,
       gender,
       email,
       bloodgroup,
@@ -94,6 +95,8 @@ patientRouter.post('/create2', async (req, res) => {
         const newPatient = await Patient.create({
           firstName,
           lastName,
+          userName,
+          password,
           gender,
           email,
           bloodgroup,
@@ -112,7 +115,31 @@ patientRouter.post('/create2', async (req, res) => {
       }
     }
   });
-  
+
+// Login route for patients
+patientRouter.post('/login', async (req, res) => {
+  const { userName, password } = req.body;
+
+  try {
+    const patient = await Patient.findOne({ userName });
+
+    if (!patient) {
+      return res.status(404).json({ error: 'Patient not found' });
+    }
+
+    // Check if the provided password matches the one in the database
+    if (patient.password !== password) {
+      return res.status(401).json({ error: 'Incorrect password' });
+    }
+
+    // Password matches; you can choose to return the patient object or a success message
+    res.status(200).json(patient);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 
 // update patient
 // update multiple patients

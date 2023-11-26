@@ -5,7 +5,6 @@ const consultationSchema = new mongoose.Schema({
   patientId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Patient', // Reference to a "Patient" model
-    required: true,
   },
   doctorId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -14,14 +13,24 @@ const consultationSchema = new mongoose.Schema({
   },
   time: {
     type: Date,
-    required: true,
   },
   // using object rather than object reference fopr consultation
   diagnosis: {
     type: Object,
     ref: 'Diagnosis', // Reference to a "Diagnosis" model
-    required: true,
   },
+  isAvailableToJoin: {
+    type: Boolean,
+    required: true
+  },
+  isPatientJoined: {
+    type: Boolean,
+    required: true
+  },
+  isActive: {
+    type: Boolean,
+    required: true
+  }
 }, {
     strictPopulate: false // Set strictPopulate to false
   });
