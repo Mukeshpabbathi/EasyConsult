@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import io from 'socket.io-client';
 import Sidebar from '../Sidebar/PatientSidebar';
+
 
 const Appointments = () => {
   return (
@@ -11,4 +13,7 @@ const Appointments = () => {
     </div>
   )
 }
+
+
+
 export default Appointments;

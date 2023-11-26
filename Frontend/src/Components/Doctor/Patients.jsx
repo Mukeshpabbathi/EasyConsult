@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from '../Sidebar/DoctorSidebar';
 import DataTable from 'react-data-table-component';
 import './Patients.css';
+import axios from 'axios';
 
 const Patients = () => {
   const [patients, setPatients] = useState([
@@ -9,6 +10,14 @@ const Patients = () => {
     { id: 2, name: 'Jane Smith', age: 25, comments: 'No comments' },
     // Add more patient data
   ]);
+  useEffect(() => {
+    const fetchdata = async () => {
+      const response = await axios.get(`http://localhost:3030/patient/doctor/${window.localStorage.getItem("doctorID")}`);
+      console.log(response.data)
+      //setPatients(response.data)
+    }
+    fetchdata()
+  }, []);
 
   const [filterText, setFilterText] = useState('');
   const [editingPatient, setEditingPatient] = useState(null);
@@ -76,6 +85,8 @@ const Patients = () => {
     <div>
       <Sidebar />
       <div className="main-content">
+      <h1>Doctor Consultations from db</h1>
+      <pre>{JSON.stringify(patients, null, 2)}</pre> 
         <h1>Patients</h1>
         <input
           type="text"

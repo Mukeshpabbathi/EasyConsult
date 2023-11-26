@@ -2,29 +2,64 @@ import React, { useState, useEffect } from 'react';
 import Sidebar from '../Sidebar/DoctorSidebar';
 import { Link } from 'react-router-dom';
 import './Home.css'; 
+import axios from 'axios';
 
 const DoctorHomePage = () => {
   const [appointments, setAppointments] = useState([]);
   const [patients, setPatients] = useState([]);
+  const [consultations, setConsultations] = useState([]);
+  const [doctor, setDoctor] = useState();
+
+      // State to track loading state
+      const [loading, setLoading] = useState(true);
+      // State to track errors, if any
+      const [error, setError] = useState(null);
 
   // Simulated data (replace with actual API calls)
   useEffect(() => {
-    // Fetch appointments and patients from your API here
-    // Example data (replace with actual data retrieval):
-    const exampleAppointments = [
-      { id: 1, patientName: 'John Doe', appointmentTime: '2023-10-31 10:00 AM' },
-      { id: 2, patientName: 'Jane Smith', appointmentTime: '2023-11-01 2:30 PM' },
-    ];
+    const fetchdata = async () => {
+      try
+      {
+        var doctorResponse = await axios.get(`http://localhost:3030/doctor/${window.localStorage.getItem("doctorID")}`);
+        setDoctor(await doctorResponse.data)
+  
+        var doctorConsultations = await axios.get(`http://localhost:3030/consultation/doctor/${window.localStorage.getItem("doctorID")}`);
+        setConsultations(await doctorConsultations.data)
+  
+        var doctorPatients = await axios.get(`http://localhost:3030/patient/doctor/${window.localStorage.getItem("doctorID")}`);
+        setPatients(doctorPatients.data)
+        
+        console.log(doctor)
+        console.log(patients)
+        console.log(consultations)
+        
+      }
+      catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
 
-    const examplePatients = [
-      { id: 1, name: 'John Doe' },
-      { id: 2, name: 'Jane Smith' },
-      // Add more patient data
-    ];
-
-    setAppointments(exampleAppointments);
-    setPatients(examplePatients);
+    }
+    fetchdata()
   }, []);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+
+  if (error) {
+    return (
+        <div>
+            <Sidebar></Sidebar>
+            <div className='main-content'>
+                <h1>{error.message}</h1>
+            </div>
+    
+        </div>
+      );
+  }
 
   return (
     <div>
@@ -32,44 +67,43 @@ const DoctorHomePage = () => {
       <div className='main-content'>
         <h1>Dashboard</h1>
         
-        {/* Display Appointments */}
-        <AppointmentsList appointments={appointments} />
+        Display Appointments
+        {/* <AppointmentsList appointments={appointments} />
 
-        {/* Display Patients List */}
-        <PatientsList patients={patients} />
+        <PatientsList patients={patients} /> */}
       </div>
     </div>
   );
 };
 
-const AppointmentsList = ({ appointments }) => {
-  return (
-    <div>
-      <h2>Upcoming Appointments</h2>
-      <ul className="appointment-list">
-        {appointments.map(appointment => (
-          <li key={appointment.id}>
-            {appointment.patientName} - {appointment.appointmentTime}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
+// const AppointmentsList = ({ appointments }) => {
+//   return (
+//     <div>
+//       <h2>Upcoming Appointments</h2>
+//       <ul className="appointment-list">
+//         {appointments.map(appointment => (
+//           <li key={appointment.id}>
+//             {appointment.patientName} - {appointment.appointmentTime}
+//           </li>
+//         ))}
+//       </ul>
+//     </div>
+//   );
+// };
 
-const PatientsList = ({ patients }) => {
-  return (
-    <div>
-      <h2>Patients List</h2>
-      <ul className="patients-list">
-        {patients.map(patient => (
-          <li key={patient.id}>
-            <Link to={`/doctor/patients/${patient.id}`}>{patient.name}</Link>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
+// const PatientsList = ({ patients }) => {
+//   return (
+//     <div>
+//       <h2>Patients List</h2>
+//       <ul className="patients-list">
+//         {patients.map(patient => (
+//           <li key={patient.id}>
+//             <Link to={`/doctor/patients/${patient.id}`}>{patient.name}</Link>
+//           </li>
+//         ))}
+//       </ul>
+//     </div>
+//   );
+// };
 
 export default DoctorHomePage;
