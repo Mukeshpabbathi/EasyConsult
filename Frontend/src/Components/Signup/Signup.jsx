@@ -9,20 +9,22 @@ import { Navigation } from "../Home/navigation";
 const Signup = () => {
   const [step, setStep] = useState(1);
   const [userType, setUserType] = useState('');
+  const [passwordMatch, setPasswordMatch] = useState(true);
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     retypepassword: '',
     personType: '',
-    firstname: '',
-    lastname: '',
+    firstName: '',
+    lastName: '',
     designation: '',
     department: '',
     degree: '',
     age: '',
     gender: '',
     contactInformation: '',
-    dob: '',
+    dateOfBirth: '',
     bloodgroup: '',
     medicalHistory: '',
   });
@@ -41,7 +43,7 @@ const Signup = () => {
   const handleNext = () => {
     if (step === 1) {
       if (userType === 'login') {
-        setStep(2); // Login page
+        setStep(3); // Login page
       } else {
         setStep(3); // Select role
       }
@@ -49,9 +51,22 @@ const Signup = () => {
         if(validateStep3())
         {
           if (formData.personType === 'Doctor') {
-              setStep(4); // Doctor signup form
+              if(userType === 'login')
+              {
+                setStep(2);
+              }
+              else{
+                setStep(4); // Doctor signup form
+              }
+              
             } else if (formData.personType === 'Patient') {
-              setStep(5); // Patient signup form
+              if(userType === 'login')
+              {
+                setStep(2);
+              }
+              else{
+                setStep(5); // Patient signup form
+              }
             }
         }
     } else if (step === 4 || step === 5) {
@@ -75,9 +90,14 @@ const Signup = () => {
   const validateStep4Or5 = () => {
     let requiredFields = [];
     if (step === 4 && formData.personType === 'Doctor') {
-      requiredFields = ['firstname', 'lastname', 'email', 'password'];
+      requiredFields = ['firstName', 'lastName', 'email', 'password'];
     } else if (step === 5 && formData.personType === 'Patient') {
-      requiredFields = ['firstname', 'lastname', 'email', 'password'];
+      requiredFields = ['firstName', 'lastName', 'email', 'password'];
+    }
+    if (formData.password !== formData.retypepassword) {
+      setErrors({ ...errors, retypepassword: 'Passwords do not match' });
+      setPasswordMatch(false);
+      return false;
     }
   
     // Check if all required fields are filled
@@ -90,6 +110,7 @@ const Signup = () => {
   
     // Clear any previous errors
     setErrors({});
+    setPasswordMatch(true);
     return true; // Validation succeeded
   };
   const validateStep6 = () => {
@@ -97,7 +118,7 @@ const Signup = () => {
     if (step === 6 && formData.personType === 'Doctor') {
       requiredFields = ['age', 'designation', 'department', 'degree', 'bloodgroup'];
     } else if (step === 6 && formData.personType === 'Patient') {
-      requiredFields = ['gender', 'dob', 'contactInformation', 'medicalHistory'];
+      requiredFields = ['gender', 'dateOfBirth', 'contactInformation', 'medicalHistory'];
     }
   
     // Check if all required fields are filled
@@ -140,13 +161,24 @@ const Signup = () => {
         createurl = 'http://localhost:3030/doctor/create';
       }
       else if(formData.personType == 'Patient'){
-        createurl = 'http://localhost:3030/patient/create';
+        createurl = 'http://localhost:3030/patient/create2';
       }
-      const response = await Axios.post(createurl, formData);
+      const formDataWithUsername = {
+        ...formData,
+        userName: formData.email,
+      };
+      console.log(formDataWithUsername)
+      const response = await Axios.post(createurl, formDataWithUsername);
   
       if (response.status === 201) {
         console.log('Doctor created successfully:', response.data);
-        window.location.replace('/doctor');
+        if(formData.personType == 'Doctor'){
+          window.location.replace('/doctor');
+        }
+        else if(formData.personType == 'Patient'){
+          window.location.replace('/patient');
+        }
+       
       } else {
         console.error('Doctor creation failed:', response.data);
         alert("Could not signup, please try again later!!!")
@@ -159,14 +191,37 @@ const Signup = () => {
 
   const handleLogin = async () => {
     try {
-      // Handle login form submission
-      // ...
-
-      console.log('Login successful');
+      let loginUrl = '';
+      if (formData.personType === 'Doctor') {
+        loginUrl = 'http://localhost:3030/doctor/login'; // Replace with the actual doctor login API endpoint
+      } else if (formData.personType === 'Patient') {
+        loginUrl = 'http://localhost:3030/patient/login'; // Replace with the actual patient login API endpoint
+      }
+      const loginData = {
+        email: formData.email,
+        password: formData.password,
+        userName: formData.email,
+      };
+      const response = await Axios.post(loginUrl, loginData);
+      if (response.status === 200) {
+        // Login successful
+        console.log('Login successful');
+        if(formData.personType == 'Doctor'){
+          window.location.replace('/doctor');
+        }
+        else if(formData.personType == 'Patient'){
+          window.location.replace('/patient');
+        }
+        // You may want to redirect the user to a different page or perform other actions here
+      } else {
+        // Handle login failure, show an error message or perform other actions
+        console.error('Login failed:', response.data);
+        setErrors({ login: response.data});
+      }
       // Redirect or show a success message
     } catch (error) {
       console.error('Login error:', error.response.data);
-      setErrors(error.response.data.errors);
+      setErrors({ login: error.response.data });
     }
   };
 
@@ -176,15 +231,15 @@ const Signup = () => {
       password,
       retypepassword,
       personType,
-      firstname,
-      lastname,
+      firstName,
+      lastName,
       designation,
       department,
       degree,
       age,
       gender,
       contactInformation,
-      dob,
+      dateOfBirth,
       bloodgroup,
       medicalHistory,
     } = formData;
@@ -227,6 +282,15 @@ const Signup = () => {
               onChange={(e) => setFormData({ ...formData, password: e.target.value })}
             />
           </div>
+          <div className="error-message">
+          {errors.login && (
+            <div className="error-message">
+              {Object.values(errors.login).map((error, index) => (
+                <div key={index}>{error}</div>
+              ))}
+            </div>
+          )}
+      </div>
 
         </>
       );
@@ -258,19 +322,19 @@ const Signup = () => {
               <input
                 type="text"
                 placeholder="First Name"
-                value={firstname}
-                onChange={(e) => setFormData({ ...formData, firstname: e.target.value })}
+                value={firstName}
+                onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
               />
-            {errors.firstname && <div className="error-message">{errors.firstname}</div>}
+            {errors.firstName && <div className="error-message">{errors.firstName}</div>}
             </div>
             <div className="input">
               <input
                 type="text"
                 placeholder="Last Name"
-                value={lastname}
-                onChange={(e) => setFormData({ ...formData, lastname: e.target.value })}
+                value={lastName}
+                onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
               />
-            {errors.lastname && <div className="error-message">{errors.lastname}</div>}
+            {errors.lastName && <div className="error-message">{errors.lastName}</div>}
             </div>
             <div className="input">
               <input
@@ -308,19 +372,19 @@ const Signup = () => {
               <input
                 type="text"
                 placeholder="First Name"
-                value={firstname}
-                onChange={(e) => setFormData({ ...formData, firstname: e.target.value })}
+                value={firstName}
+                onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
               />
-              {errors.firstname && <div className="error-message">{errors.firstname}</div>}
+              {errors.firstName && <div className="error-message">{errors.firstName}</div>}
             </div>
             <div className="input">
               <input
                 type="text"
                 placeholder="Last Name"
-                value={lastname}
-                onChange={(e) => setFormData({ ...formData, lastname: e.target.value })}
+                value={lastName}
+                onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
               />
-            {errors.lastname && <div className="error-message">{errors.lastname}</div>}
+            {errors.lastName && <div className="error-message">{errors.lastName}</div>}
             </div>
             <div className="input">
               <input
@@ -415,13 +479,13 @@ const Signup = () => {
               {errors.gender && <div className="error-message">{errors.gender}</div>}
               </div>
               <div className="input">
-                <input
-                  type="text"
-                  placeholder="Date of Birth"
-                  value={dob}
-                  onChange={(e) => setFormData({ ...formData, dob: e.target.value })}
-                />
-              {errors.dob && <div className="error-message">{errors.dob}</div>}
+                  <input
+                type="date"
+                placeholder="Date of Birth"
+                value={dateOfBirth}
+                onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
+              />
+              {errors.dateOfBirth && <div className="error-message">{errors.dateOfBirth}</div>}
               </div>
               <div className="input">
                 <input

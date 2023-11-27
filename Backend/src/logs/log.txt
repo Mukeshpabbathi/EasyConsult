@@ -2027,3 +2027,81 @@
 [11/26/2023, 5:54:15 PM] /patient/doctor/653b2aadc1aa1659057e5644 Request Method: GET
 [11/26/2023, 5:54:15 PM] /consultation/doctor/653b2aadc1aa1659057e5644 Request Method: GET
 [11/26/2023, 5:54:15 PM] /patient/doctor/653b2aadc1aa1659057e5644 Request Method: GET
+[11/26/2023, 6:25:45 PM] Running express server on port 3030
+[11/26/2023, 6:41:20 PM] Running express server on port 3030
+[11/26/2023, 6:41:35 PM] /doctor/create Request Method: POST
+[11/26/2023, 6:42:58 PM] /doctor/create Request Method: POST
+[11/26/2023, 6:43:50 PM] Running express server on port 3030
+[11/26/2023, 6:44:27 PM] Running express server on port 3030
+[11/26/2023, 6:44:59 PM] /doctor/create Request Method: POST
+[11/26/2023, 6:45:40 PM] Running express server on port 3030
+[11/26/2023, 6:47:07 PM] /doctor/create Request Method: POST
+[11/26/2023, 6:48:04 PM] /doctor/create Request Method: POST
+[11/26/2023, 6:49:31 PM] /doctor/create Request Method: POST
+[11/26/2023, 6:50:11 PM] Running express server on port 3030
+[11/26/2023, 6:50:15 PM] Running express server on port 3030
+[11/26/2023, 6:50:43 PM] /doctor/create Request Method: POST
+[11/26/2023, 6:50:47 PM] /doctor/653b2aadc1aa1659057e5644 Request Method: GET
+[11/26/2023, 6:50:47 PM] /doctor/653b2aadc1aa1659057e5644 Request Method: GET
+[11/26/2023, 6:50:47 PM] /consultation/doctor/653b2aadc1aa1659057e5644 Request Method: GET
+[11/26/2023, 6:50:48 PM] /consultation/doctor/653b2aadc1aa1659057e5644 Request Method: GET
+[11/26/2023, 6:50:48 PM] /patient/doctor/653b2aadc1aa1659057e5644 Request Method: GET
+[11/26/2023, 6:50:48 PM] /patient/doctor/653b2aadc1aa1659057e5644 Request Method: GET
+[11/26/2023, 6:51:24 PM] Running express server on port 3030
+[11/26/2023, 7:18:00 PM] /patient/create Request Method: POST
+[11/26/2023, 7:19:16 PM] Running express server on port 3030
+[11/26/2023, 7:20:17 PM] Running express server on port 3030
+[11/26/2023, 7:20:30 PM] /patient/create Request Method: POST
+[11/26/2023, 7:22:54 PM] Running express server on port 3030
+[11/26/2023, 7:23:54 PM] /patient/create2 Request Method: POST
+[11/26/2023, 7:23:59 PM] /doctor/653b2aadc1aa1659057e5644 Request Method: GET
+[11/26/2023, 7:23:59 PM] /doctor/653b2aadc1aa1659057e5644 Request Method: GET
+[11/26/2023, 7:23:59 PM] /consultation/doctor/653b2aadc1aa1659057e5644 Request Method: GET
+[11/26/2023, 7:23:59 PM] /consultation/doctor/653b2aadc1aa1659057e5644 Request Method: GET
+[11/26/2023, 7:23:59 PM] /patient/doctor/653b2aadc1aa1659057e5644 Request Method: GET
+[11/26/2023, 7:23:59 PM] /patient/doctor/653b2aadc1aa1659057e5644 Request Method: GET
+[11/26/2023, 7:28:27 PM] /doctor/login Request Method: POST
+[11/26/2023, 7:28:38 PM] /doctor/login Request Method: POST
+[11/26/2023, 7:28:42 PM] /doctor/login Request Method: POST
+[11/26/2023, 7:30:23 PM] /doctor/login Request Method: POST
+[11/26/2023, 7:30:26 PM] /doctor/653b2aadc1aa1659057e5644 Request Method: GET
+[11/26/2023, 7:30:26 PM] /doctor/653b2aadc1aa1659057e5644 Request Method: GET
+[11/26/2023, 7:30:26 PM] /consultation/doctor/653b2aadc1aa1659057e5644 Request Method: GET
+[11/26/2023, 7:30:26 PM] /consultation/doctor/653b2aadc1aa1659057e5644 Request Method: GET
+[11/26/2023, 7:30:26 PM] /patient/doctor/653b2aadc1aa1659057e5644 Request Method: GET
+[11/26/2023, 7:30:26 PM] /patient/doctor/653b2aadc1aa1659057e5644 Request Method: GET
+[11/26/2023, 7:30:48 PM] /patient/login Request Method: POST
+[11/26/2023, 7:30:59 PM] /patient/login Request Method: POST
+[11/26/2023, 7:31:02 PM] /patient/653b2397a928ffb569c150e8 Request Method: GET
+[11/26/2023, 7:31:02 PM] /patient/653b2397a928ffb569c150e8 Request Method: GET
+[11/26/2023, 7:31:02 PM] /consultation/patient/653b2397a928ffb569c150e8 Request Method: GET
+[11/26/2023, 7:31:02 PM] /consultation/patient/653b2397a928ffb569c150e8 Request Method: GET
+[11/26/2023, 7:31:02 PM] /doctor/patient/653b2397a928ffb569c150e8 Request Method: GET
+[11/26/2023, 7:31:02 PM] /doctor/patient/653b2397a928ffb569c150e8 Request Method: GET
+[11/26/2023, 7:31:13 PM] /patient/653b2397a928ffb569c150e8 Request Method: GET
+[11/26/2023, 7:31:13 PM] /patient/653b2397a928ffb569c150e8 Request Method: GET
+[11/26/2023, 7:31:13 PM] /consultation/patient/653b2397a928ffb569c150e8 Request Method: GET
+[11/26/2023, 7:31:13 PM] /consultation/patient/653b2397a928ffb569c150e8 Request Method: GET
+[11/26/2023, 7:31:13 PM] /doctor/patient/653b2397a928ffb569c150e8 Request Method: GET
+[11/26/2023, 7:31:14 PM] /doctor/patient/653b2397a928ffb569c150e8 Request Method: GET
+[11/26/2023, 7:33:07 PM] /doctor/login Request Method: POST
+[11/26/2023, 7:37:55 PM] /doctor/login Request Method: POST
+[11/26/2023, 7:38:12 PM] /doctor/login Request Method: POST
+[11/26/2023, 7:39:29 PM] /doctor/login Request Method: POST
+[11/26/2023, 7:40:33 PM] /doctor/login Request Method: POST
+[11/26/2023, 7:41:11 PM] /doctor/login Request Method: POST
+[11/26/2023, 7:41:29 PM] /doctor/login Request Method: POST
+[11/26/2023, 7:41:40 PM] /patient/login Request Method: POST
+[11/26/2023, 7:41:43 PM] /patient/login Request Method: POST
+[11/26/2023, 7:41:44 PM] /patient/653b2397a928ffb569c150e8 Request Method: GET
+[11/26/2023, 7:41:44 PM] /patient/653b2397a928ffb569c150e8 Request Method: GET
+[11/26/2023, 7:41:44 PM] /consultation/patient/653b2397a928ffb569c150e8 Request Method: GET
+[11/26/2023, 7:41:44 PM] /consultation/patient/653b2397a928ffb569c150e8 Request Method: GET
+[11/26/2023, 7:41:44 PM] /doctor/patient/653b2397a928ffb569c150e8 Request Method: GET
+[11/26/2023, 7:41:44 PM] /doctor/patient/653b2397a928ffb569c150e8 Request Method: GET
+[11/26/2023, 7:42:09 PM] /patient/653b2397a928ffb569c150e8 Request Method: GET
+[11/26/2023, 7:42:10 PM] /patient/653b2397a928ffb569c150e8 Request Method: GET
+[11/26/2023, 7:42:10 PM] /consultation/patient/653b2397a928ffb569c150e8 Request Method: GET
+[11/26/2023, 7:42:10 PM] /consultation/patient/653b2397a928ffb569c150e8 Request Method: GET
+[11/26/2023, 7:42:10 PM] /doctor/patient/653b2397a928ffb569c150e8 Request Method: GET
+[11/26/2023, 7:42:10 PM] /doctor/patient/653b2397a928ffb569c150e8 Request Method: GET

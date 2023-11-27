@@ -65,11 +65,13 @@ doctorRouter.get('/consultation/:consultationId', async (req, res) => {
 // Create a new doctor
 doctorRouter.post('/create', async (req, res) => {
   try {
-    const { firstname, lastname, designation, department, degree, age, bloodgroup } = req.body;
+    const { firstName, lastName,userName,password, designation, department, degree, age, bloodgroup } = req.body;
 
     const newDoctor = new Doctor({
-      firstname,
-      lastname,
+      firstName,
+      lastName,
+      userName,
+      password,
       designation,
       department,
       degree,
